@@ -11,7 +11,15 @@ const app = express();
 
 // Handlebars Middleware
 app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+// app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', exphbs({
+    defaultLayout: 'main',
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs',
+}))
+app.set('view engine', '.hbs');
 
 // Body Parser Middleware
 app.use(express.json());
